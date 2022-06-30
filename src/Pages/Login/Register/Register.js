@@ -1,22 +1,16 @@
-import React, { useEffect } from "react";
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import React from "react";
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../Shared/Loading/Loading";
 
-const Login = () => {
+const Register = () => {
   const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] = useSignInWithGoogle(auth);
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
-  let signInError;
   const navigate = useNavigate();
-  const location = useLocation();
-  let from = location.state?.from?.pathname || "/";
-
-  if (user || userGoogle) {
-    navigate(from, { replace: true });
-  }
 
   const {
     register,
@@ -24,7 +18,9 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  if (error || errorGoogle) {
+  let signInError;
+
+  if (error || errorGoogle || updateError) {
     signInError = (
       <p className="text-red-500 ml-2">
         <small>{error?.message || errorGoogle?.message}</small>
@@ -32,28 +28,57 @@ const Login = () => {
     );
   }
 
-  if (loading || loadingGoogle) {
+  if (loading || loadingGoogle || updating) {
     return <Loading />;
   }
 
-  const onSubmit = (data) => {
-    signInWithEmailAndPassword(data.email, data.password);
+  if (user || userGoogle) {
+    navigate("/to-do");
+  }
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
+    console.log("update done");
   };
 
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="text-center text-2xl font-bold mb-4">Login</h2>
+          <h2 className="text-center text-2xl font-bold mb-4">Sign Up</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
+            {/* Name Field */}
+            <div className="form-control w-full max-w-xs">
+              {/* <label className="label">
+                <span className="label-text text-lg">Name</span>
+              </label> */}
+              <input
+                type="text"
+                placeholder="Name"
+                className="input input-bordered w-full max-w-xs"
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "Name is Required",
+                  },
+                })}
+              />
+              {/* Error */}
+              <label className="label">
+                {errors.name?.type === "required" && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
+              </label>
+            </div>
+
             {/* Email Field */}
             <div className="form-control w-full max-w-xs">
-              <label className="label">
+              {/* <label className="label">
                 <span className="label-text text-lg">Email</span>
-              </label>
+              </label> */}
               <input
                 type="email"
-                placeholder="Your Email"
+                placeholder="Email"
                 className="input input-bordered w-full max-w-xs"
                 {...register("email", {
                   required: {
@@ -73,12 +98,12 @@ const Login = () => {
             </div>
             {/* Password Field */}
             <div className="form-control w-full max-w-xs">
-              <label className="label">
+              {/* <label className="label">
                 <span className="label-text text-lg">Password</span>
-              </label>
+              </label> */}
               <input
                 type="password"
-                placeholder="Your Password"
+                placeholder="Password"
                 className="input input-bordered w-full max-w-xs"
                 {...register("password", {
                   required: {
@@ -97,13 +122,13 @@ const Login = () => {
               </label>
             </div>
             {/* Button */}
-            <input className="btn w-full max-w-xs" type="submit" value="Login" />
+            <input className="btn w-full max-w-xs" type="submit" value="Signup" />
             {signInError}
 
             <p className="text-sm my-2 text-center">
-              New to Envy Task?
-              <Link className="text-orange-500 ml-1" to="/register">
-                Create New Account
+              Already have an account?
+              <Link className="text-orange-500 ml-1" to="/login">
+                Please Login
               </Link>
             </p>
           </form>
@@ -119,4 +144,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

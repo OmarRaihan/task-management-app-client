@@ -5,6 +5,7 @@ import Header from "./Pages/Shared/Header/Header";
 import MyCalendar from "./Pages/MyCalendar/MyCalendar";
 import Login from "./Pages/Login/Login/Login";
 import ToDo from "./Pages/Home/ToDo/ToDo";
+import Register from "./Pages/Login/Register/Register";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/to-do" element={<ToDo />}></Route>
         <Route path="/calendar" element={<MyCalendar />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
       </Routes>
     </div>
   );
