@@ -26,7 +26,7 @@ const Header = () => {
   );
 
   return (
-    <div className="navbar bg-slate-300">
+    <div className="navbar bg-slate-300 sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex="0" className="btn btn-ghost lg:hidden">
@@ -38,7 +38,7 @@ const Header = () => {
             {menuItems}
           </ul>
         </div>
-        <a href="/to-do" className="btn btn-ghost normal-case text-xl">
+        <a href="/to-do" className="btn btn-ghost normal-case text-2xl font-bold">
           Envy Task
         </a>
       </div>
