@@ -1,8 +1,9 @@
 import React from "react";
+import Todos from "../Todos/Todos";
 
 const Home = () => {
   return (
-    <div>
+    <div className="mb-24">
       <div>
         <h2 className="text-center text-2xl font-bold my-10">Put Your Daily Task</h2>
         <div className="flex justify-center items-center">
@@ -16,8 +17,7 @@ const Home = () => {
       </div>
       {/* ------------------------------------ */}
       {/* Task Lists */}
-
-
+      <Todos />
     </div>
   );
 };
