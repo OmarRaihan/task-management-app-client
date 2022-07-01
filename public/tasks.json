@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Weight Loss",
+        "description": "Loss weight in just 3 month."
+    },
+    {
+        "id": 2,
+        "name": "Height Gain",
+        "description": "Gain weight in just 3 month."
+    },
+    {
+        "id": 3,
+        "name": "Fat Loss",
+        "description": "Loss fat in just 3 month."
+    }
+]

@@ -14,13 +14,13 @@ const Header = () => {
   const menuItems = (
     <>
       <li>
-        <Link to="/to-do">To-Do</Link>
+        <Link className="text-lg font-semibold" to="/to-do">To-Do</Link>
       </li>
       <li>
-        <Link to="/completed">Completed</Link>
+        <Link className="text-lg font-semibold" to="/completed">Completed</Link>
       </li>
       <li>
-        <Link to="/calendar">Calendar</Link>
+        <Link className="text-lg font-semibold" to="/calendar">Calendar</Link>
       </li>
     </>
   );
@@ -51,7 +51,7 @@ const Header = () => {
             SignOut
           </button>
         ) : (
-          <Link className="btn text-white" to="/login">Login</Link>
+          <Link className="btn btn-ghost" to="/login">Login</Link>
         )}
       </div>
     </div>

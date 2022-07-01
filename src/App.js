@@ -6,14 +6,15 @@ import MyCalendar from "./Pages/MyCalendar/MyCalendar";
 import Login from "./Pages/Login/Login/Login";
 import ToDo from "./Pages/Home/ToDo/ToDo";
 import Register from "./Pages/Login/Register/Register";
+import Home from "./Pages/Home/Home/Home";
 
 function App() {
   return (
     <div>
       <Header />
       <Routes>
-        <Route path="/" element={<ToDo />}></Route>
-        <Route path="/to-do" element={<ToDo />}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/to-do" element={<Home />}></Route>
         <Route path="/calendar" element={<MyCalendar />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
